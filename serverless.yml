@@ -1,0 +1,20 @@
+service: private-geo-proxy
+
+frameworkVersion: '2'
+
+configValidationMode: error
+
+provider:
+  name: aws
+  runtime: python3.8
+  lambdaHashingVersion: 20201221
+
+package:
+  include:
+    - lambdas/**
+  exclude:
+    - venv/**
+
+functions:
+  launch_proxy_ec2:
+    handler: lambdas.launch_proxy_ec2.lambda_handler.lambda_handler
