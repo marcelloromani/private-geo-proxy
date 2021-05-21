@@ -28,6 +28,7 @@ provider:
             - ec2:DescribeLaunchTemplateVersions
             - ec2:RunInstances
             - ec2:CreateTags
+            - ec2:TerminateInstances
           Resource: "*"
 
 package:
