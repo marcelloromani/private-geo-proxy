@@ -97,7 +97,7 @@ def run_instance(template_id):
     return response
 
 
-def lambda_handler(event, context):
+def lambda_handler(event, _):
     logger.info(event)
 
     # pseudocode:

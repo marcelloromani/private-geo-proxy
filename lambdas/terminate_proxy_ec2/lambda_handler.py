@@ -67,7 +67,7 @@ def terminate_instances(instances):
     return response
 
 
-def lambda_handler(event, context):
+def lambda_handler(event, _):
     logger.info(event)
 
     instances = find_instances()
