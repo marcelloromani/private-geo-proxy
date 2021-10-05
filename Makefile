@@ -1,6 +1,10 @@
 .PHONY: requirements deploy
 .ONESHELL:
 
+help:
+	@echo "start-proxy     to start the proxy instance"
+	@echo "stop-proxy      to terminate the proxy instance"
+
 venv:
 	python3 -m venv venv
 
