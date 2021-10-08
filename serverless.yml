@@ -45,3 +45,7 @@ functions:
     handler: lambdas.terminate_proxy_ec2.lambda_handler.lambda_handler
     name: ${sls:stage}-terminate-proxy-ec2
     description: Terminates the EC2 instance used as SOCKS proxy
+  check_proxy_ec2:
+    handler: lambdas.check_proxy_ec2.lambda_handler.lambda_handler
+    name: ${sls:stage}-check-proxy-ec2
+    description: Reports on the status of the EC2 instance used as SOCKS proxy

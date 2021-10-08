@@ -19,3 +19,6 @@ start-proxy:
 
 stop-proxy:
 	sls invoke --function terminate_proxy_ec2
+
+check-proxy:
+	sls invoke --function check_proxy_ec2
