@@ -3,11 +3,10 @@ import os
 
 import boto3
 
+from common.constants import TAG_NAME, TAG_VALUE
+
 logger = logging.getLogger()
 logger.setLevel(logging.INFO)
-
-TAG_NAME = 'project'
-TAG_VALUE = 'astropi'
 
 _client = None
 
