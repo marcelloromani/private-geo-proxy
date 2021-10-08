@@ -8,25 +8,25 @@ from common.constants import TAG_NAME, TAG_VALUE
 logger = logging.getLogger()
 logger.setLevel(logging.INFO)
 
+# The boto3 EC2 client
 _client = None
 
 
 def get_boto3_ec2_client():
-    global _client
-    if _client is not None:
-        return _client
-
     aws_region = os.getenv('AWS_REGION')
     if aws_region:
-        _client = boto3.client('ec2', region_name=aws_region)
+        client = boto3.client('ec2', region_name=aws_region)
     else:
-        _client = boto3.client('ec2')
-    return _client
+        client = boto3.client('ec2')
+    return client
 
 
-def find_instances():
-    client = get_boto3_ec2_client()
-
+def find_instances(client):
+    """
+    Find EC2 instances belonging to the project in pending or running state
+    :param client: boto3 ec2 client
+    :return: list of instance ids
+    """
     filters = [
         {
             'Name': f'tag:{TAG_NAME}',
@@ -62,7 +62,11 @@ def find_instances():
 def lambda_handler(event, _):
     logger.info(event)
 
-    instances = find_instances()
+    global _client
+    if _client is None:
+        _client = get_boto3_ec2_client()
+
+    instances = find_instances(_client)
     if len(instances) > 0:
         return "Running instance(s): {}".format(
             ", ".join(list(map(lambda x: x['InstanceId'], instances)))
