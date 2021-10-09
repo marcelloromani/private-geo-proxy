@@ -34,7 +34,7 @@ def find_launch_template() -> str:
     return templates[0]['LaunchTemplateId']
 
 
-def run_instance(template_id):
+def launch_instance(template_id):
     client = get_boto3_ec2_client()
 
     response = client.run_instances(
@@ -60,6 +60,6 @@ def lambda_handler(event, _):
             list(map(lambda x: x['InstanceId'], instances)))
 
     launch_template_id = find_launch_template()
-    resp = run_instance(launch_template_id)
+    resp = launch_instance(launch_template_id)
     logger.info(resp)
     return "Launched instance"
