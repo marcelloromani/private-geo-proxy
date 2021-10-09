@@ -68,3 +68,25 @@ def terminate_instances(client, instances):
         InstanceIds=instances
     )
     return response
+
+
+def find_launch_template(client) -> str:
+    """
+    Return the ID of the launch template with project=astropi
+    """
+    response = client.describe_launch_templates(
+        Filters=[
+            {
+                'Name': f'tag:{TAG_NAME}',
+                'Values': [
+                    TAG_VALUE,
+                ]
+            },
+        ],
+    )
+    templates = response['LaunchTemplates']
+    if len(templates) == 0:
+        raise ValueError('No launch template found with provided search paramters')
+    if len(templates) > 1:
+        raise ValueError(f'Was expecting 1 template but found {len(template)}')
+    return templates[0]['LaunchTemplateId']
