@@ -52,6 +52,17 @@ def find_instances(client):
     return instances
 
 
+def launch_instance(client, template_id):
+    response = client.run_instances(
+        MinCount=1,
+        MaxCount=1,
+        LaunchTemplate={
+            'LaunchTemplateId': template_id,
+        }
+    )
+    return response
+
+
 def terminate_instances(client, instances):
     response = client.terminate_instances(
         InstanceIds=instances

@@ -1,7 +1,7 @@
 import logging
 
 from common.constants import TAG_NAME, TAG_VALUE
-from common.ec2 import get_boto3_ec2_client, find_instances
+from common.ec2 import get_boto3_ec2_client, find_instances, launch_instance
 
 logger = logging.getLogger()
 logger.setLevel(logging.INFO)
@@ -34,19 +34,6 @@ def find_launch_template() -> str:
     return templates[0]['LaunchTemplateId']
 
 
-def launch_instance(template_id):
-    client = get_boto3_ec2_client()
-
-    response = client.run_instances(
-        MinCount=1,
-        MaxCount=1,
-        LaunchTemplate={
-            'LaunchTemplateId': template_id,
-        }
-    )
-    return response
-
-
 def lambda_handler(event, _):
     logger.info(event)
 
@@ -60,6 +47,6 @@ def lambda_handler(event, _):
             list(map(lambda x: x['InstanceId'], instances)))
 
     launch_template_id = find_launch_template()
-    resp = launch_instance(launch_template_id)
+    resp = launch_instance(_client, launch_template_id)
     logger.info(resp)
     return "Launched instance"
