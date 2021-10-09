@@ -1,20 +1,12 @@
 import logging
 
-from common.ec2 import get_boto3_ec2_client, find_instances
+from common.ec2 import get_boto3_ec2_client, find_instances, terminate_instances
 
 logger = logging.getLogger()
 logger.setLevel(logging.INFO)
 
 # The boto3 EC2 client
 _client = None
-
-
-def terminate_instances(instances):
-    client = get_boto3_ec2_client()
-    response = client.terminate_instances(
-        InstanceIds=instances
-    )
-    return response
 
 
 def lambda_handler(event, _):
@@ -31,7 +23,7 @@ def lambda_handler(event, _):
         return msg
 
     instance_ids = list(map(lambda x: x['InstanceId'], instances))
-    resp = terminate_instances(instance_ids)
+    resp = terminate_instances(_client, instance_ids)
     logger.debug(resp)
 
     msg = f"Terminated instances: {instance_ids}"

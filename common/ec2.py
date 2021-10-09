@@ -50,3 +50,10 @@ def find_instances(client):
 
     instances = res['Instances']
     return instances
+
+
+def terminate_instances(client, instances):
+    response = client.terminate_instances(
+        InstanceIds=instances
+    )
+    return response
