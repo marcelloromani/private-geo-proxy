@@ -1,6 +1,5 @@
 import logging
 
-from common.constants import TAG_NAME, TAG_VALUE
 from common.ec2 import get_boto3_ec2_client, find_instances, launch_instance, find_launch_template
 
 logger = logging.getLogger()
