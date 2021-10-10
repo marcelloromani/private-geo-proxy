@@ -1,5 +1,6 @@
 import logging
 
+from common.constants import TAG_NAME, TAG_VALUE
 from common.ec2 import get_boto3_ec2_client, find_instances, launch_instance, find_launch_template
 
 logger = logging.getLogger()
@@ -21,7 +22,7 @@ def lambda_handler(event, _):
         return "Running instance(s): {} ==> Not starting a new one.".format(
             list(map(lambda x: x['InstanceId'], instances)))
 
-    launch_template_id = find_launch_template(_client)
+    launch_template_id = find_launch_template(_client, tag_name=TAG_NAME, tag_value=TAG_VALUE)
     resp = launch_instance(_client, launch_template_id)
     logger.info(resp)
     return "Launched instance"
