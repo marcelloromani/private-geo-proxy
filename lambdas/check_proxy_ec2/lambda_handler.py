@@ -19,7 +19,7 @@ def lambda_handler(event, _):
     instances = find_instances(_client)
     if len(instances) > 0:
         return "Running instance(s): {}".format(
-            ", ".join(list(map(lambda x: x['InstanceId'], instances)))
+            ", ".join(list(map(lambda x: f"{x['InstanceId']} ==> {x['PublicIpAddress']}", instances)))
         )
     else:
         return "No instances running."
