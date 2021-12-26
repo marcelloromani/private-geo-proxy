@@ -22,3 +22,6 @@ stop-proxy:
 
 check-proxy:
 	sls invoke --function check_proxy_ec2
+
+check-instances:
+	aws ec2 describe-instances | jq ' .Reservations[] .Instances[] .State '
