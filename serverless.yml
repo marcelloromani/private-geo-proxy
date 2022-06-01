@@ -1,13 +1,12 @@
 service: private-geo-proxy
 
-frameworkVersion: '2'
+frameworkVersion: '3'
 
 configValidationMode: error
 
 provider:
   name: aws
   runtime: python3.8
-  lambdaHashingVersion: 20201221
 
   stage: dev
   region: eu-south-1
