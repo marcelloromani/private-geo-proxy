@@ -29,7 +29,7 @@ check-proxy: export AWS_PROFILE := personal-admin
 check-proxy:
 	sls invoke --function check_proxy_ec2
 
-check-proxy: export AWS_PROFILE := personal-admin
+check-instances: export AWS_PROFILE := personal-admin
 check-instances:
 	aws ec2 describe-instances | jq ' .Reservations[] .Instances[] .State '
 
