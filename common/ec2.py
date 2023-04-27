@@ -88,5 +88,5 @@ def find_launch_template(client, tag_name, tag_value) -> str:
     if len(templates) == 0:
         raise ValueError(f'No launch template found with tag {tag_name}={tag_value}')
     if len(templates) > 1:
-        raise ValueError(f'Was expecting 1 template but found {len(template)}')
+        raise ValueError(f'Was expecting 1 template but found {len(templates)}')
     return templates[0]['LaunchTemplateId']
