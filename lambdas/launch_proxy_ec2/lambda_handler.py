@@ -20,7 +20,8 @@ def lambda_handler(event, _):
     instances = find_instances(_client)
     if len(instances) > 0:
         return "Running instance(s): {} ==> Not starting a new one.".format(
-            list(map(lambda x: x['InstanceId'], instances)))
+            list(map(lambda x: x['InstanceId'], instances))
+        )
 
     launch_template_id = find_launch_template(_client, tag_name=TAG_NAME, tag_value=TAG_VALUE)
     resp = launch_instance(_client, launch_template_id)
